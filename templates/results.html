@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>რეკომენდებული პროფესია</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 80%;
+        max-width: 800px;
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      .recommendations {
+        display: flex;
+        justify-content: space-between;
+      }
+      .column {
+        width: 45%;
+      }
+      .profession {
+        font-size: 18px;
+        color: #444;
+        margin: 10px 0;
+      }
+      .score {
+        font-size: 16px;
+        color: #888;
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: 1px solid #333;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #333;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .back-link:hover {
+        background-color: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>რეკომენდაცია</h1>
+      <div class="recommendations">
+        <div class="column">
+          <h3>FAISS რეკომენდაციები</h3>
+          {% for recommendation in faiss_recommendations %}
+            <div class="profession">{{ recommendation[0] }}</div>
+            <div class="score">ალბათობა: {{ recommendation[1] }}</div>
+          {% endfor %}
+        </div>
+        <div class="column">
+          <h3>Random Forest რეკომენდაციები</h3>
+          {% for recommendation in rf_recommendations %}
+            <div class="profession">{{ recommendation[0] }}</div>
+            <div class="score">ალბათობა: {{ recommendation[1] }}</div>
+          {% endfor %}
+        </div>
+        <div class="column">
+          <h3>Logistic Regression რეკომენდაციები</h3>
+          {% for recommendation in lr_recommendations %}
+            <div class="profession">{{ recommendation[0] }}</div>
+            <div class="score">ალბათობა: {{ recommendation[1] }}</div>
+          {% endfor %}
+        </div>
+      </div>
+      <a href="/" class="back-link">უკან დაბრუნება</a>
+    </div>
+  </body>
+</html>

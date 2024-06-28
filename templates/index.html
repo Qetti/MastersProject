@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>კითხვარი პროფესიის შესარჩევად</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* Ensure content starts from the top */
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+      h1, h2 {
+        color: #333;
+        text-align: center;
+      }
+      p {
+        color: #555;
+        text-align: center;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      ul li {
+        display: inline-block;
+        margin: 5px 10px;
+      }
+      ul li strong {
+        color: #444;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+      }
+      select {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        width: 100%;
+        max-width: 300px;
+      }
+      button {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        background-color: #5cb85c;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      button:hover {
+        background-color: #4cae4c;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>კვლევა</h1>
+      <form action="{{ url_for('submit') }}" method="post">
+        <div class="section">
+          <h2>სექცია 1</h2>
+          <p>შეაფასეთ თქვენი დამოკიდებულება საქმიანობების მიხედვით:</p>
+          {% for i, question in enumerate(section1_questions) %}
+            <label for="q{{ '%02d' % (i+1) }}">{{ question }}</label>
+            <select name="q{{ '%02d' % (i+1) }}" id="q{{ '%02d' % (i+1) }}">
+              <option value="მძულს" {% if default_input_list[i] == 'მძულს' %}selected{% endif %}>მძულს</option>
+              <option value="არ მომწონს" {% if default_input_list[i] == 'არ მომწონს' %}selected{% endif %}>არ მომწონს</option>
+              <option value="ნეიტრალური ვარ" {% if default_input_list[i] == 'ნეიტრალური ვარ' %}selected{% endif %}>ნეიტრალური ვარ</option>
+              <option value="მომწონს" {% if default_input_list[i] == 'მომწონს' %}selected{% endif %}>მომწონს</option>
+              <option value="მიყვარს" {% if default_input_list[i] == 'მიყვარს' %}selected{% endif %}>მიყვარს</option>
+            </select>
+          {% endfor %}
+        </div>
+        <div class="section">
+          <h2>სექცია 2</h2>
+          <p>რამდენად დაინტერესდებოდით ამა თუ იმ საქმიანობით:</p>
+          <p>1 ნიშნავს რომ არ დაინტერსდებოდით, 5 - ძალიან დაინტერესდებოდით:</p>
+          {% for i, question in enumerate(section2_questions) %}
+            <label for="q{{ '%02d' % (i+51) }}">{{ question }}</label>
+            <select name="q{{ '%02d' % (i+51) }}" id="q{{ '%02d' % (i+51) }}">
+              <option value="1" {% if default_input_list[i+50] == '1' %}selected{% endif %}>1</option>
+              <option value="2" {% if default_input_list[i+50] == '2' %}selected{% endif %}>2</option>
+              <option value="3" {% if default_input_list[i+50] == '3' %}selected{% endif %}>3</option>
+              <option value="4" {% if default_input_list[i+50] == '4' %}selected{% endif %}>4</option>
+              <option value="5" {% if default_input_list[i+50] == '5' %}selected{% endif %}>5</option>
+            </select>
+          {% endfor %}
+        </div>
+        <button type="submit">შენახვა</button>
+      </form>
+    </div>
+  </body>
+</html>
